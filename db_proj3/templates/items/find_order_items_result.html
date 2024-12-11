@@ -1,0 +1,89 @@
+<!-- templates/items/find_order_items_result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Items Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order Items Result</h1>
+        {% if items %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity in Order</th>
+                        <th>Location</th> <!-- 新增列 -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.itemId }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.location }}</td> <!-- 显示物品位置 -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No items found for the given Order ID.</p>
+        {% endif %}
+        <a href="{{ url_for('items.find_order_items') }}">Back to Find Order Items</a>
+    </div>
+    <a href="{{ url_for('auth.index') }}">Back to Home</a>
+</body>
+</html>

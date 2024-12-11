@@ -1,0 +1,60 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome Home</h1>
+        <nav>
+            <ul>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    
+                    {% if current_user.role == 'volunteer' %}
+                        <li><a href="{{ url_for('donations.accept_donation') }}">Accept Donation</a></li>
+                        <section>
+                          <h2>Introduction</h2>
+                          <p>This is the main page of our application. As you are a volunteer, you can navigate to different sections:</p>
+                          <ul>
+                              <li>Donate some stuff to our stock.</li>
+                          </ul>
+                      </section>
+                    {% elif current_user.role == 'staff' %}
+                        <li><a href="{{ url_for('items.find_single_item') }}">Find Single Item</a></li>
+                        <li><a href="{{ url_for('items.find_order_items') }}">Find Order Items</a></li>
+                        <li><a href="{{ url_for('donations.view_donations') }}">View Donations</a></li>
+                        <li><a href="{{ url_for('orders.start_order') }}">Start New Order</a></li>
+                        <section>
+                          <h2>Introduction</h2>
+                          <p>This is the main page of our application. As you are a staff, you can navigate to different sections:</p>
+                          <ul>
+                              <li>Find an item by its ID.</li>
+                              <li>Find all items associated with a specific order.</li>
+                              <li>View all donations</li>
+                              <li>Start a new order for a client.</li>
+                          </ul>
+                      </section>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% if current_user.is_authenticated %}
+        <section>
+            <h2>Welcome Message</h2>
+            {% if current_user.role == 'staff' %}
+                <p>Welcome, Staff Member! You have access to additional administrative features.</p>
+            {% elif current_user.role == 'volunteer' %}
+                <p>Welcome, Volunteer! Thank you for your contribution to our community.</p>
+            {% endif %}
+        </section>
+        {% endif %}
+    </main>
+</body>
+</html>

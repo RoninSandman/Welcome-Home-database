@@ -1,0 +1,24 @@
+<!-- templates/orders/start_order_form.html -->
+{% extends "base.html" %}
+
+{% block title %}Start New Order{% endblock %}
+
+{% block content %}
+<h1>Start New Order</h1>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<form method="post">
+    <label for="client_username">Enter Client Username:</label>
+    <input type="text" id="client_username" name="client_username" required>
+    <button type="submit">Start Order</button>
+</form>
+<a href="{{ url_for('auth.index') }}">Back to Home</a>
+{% endblock %}

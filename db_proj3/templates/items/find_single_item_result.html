@@ -1,0 +1,18 @@
+<!-- templates/items/find_single_item_result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Single Item Result</title>
+</head>
+<body>
+    <h1>Item Details</h1>
+    <p><strong>ID:</strong> {{ item['itemId'] }}</p>
+    <p><strong>Description:</strong> {{ item['description'] }}</p>
+    <p><strong>Price:</strong> {{ item['price'] }}</p>
+    <p><strong>Stock Quantity:</strong> {{ item['stockQuantity'] }}</p>
+    <p><strong"Donator:</strong> {{ item['donator'] }}</p>
+    <a href="{{ url_for('items.find_single_item') }}">Back to Search</a>
+    <a href="{{ url_for('auth.index') }}">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!-- templates/items/find_single_item_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Single Item</title>
+</head>
+<body>
+    <h1>Find Single Item by ID</h1>
+    <form method="post">
+        <label for="item_id">Enter Item ID:</label>
+        <input type="text" id="item_id" name="item_id" required>
+        <button type="submit">Search</button>
+    </form>
+    <a href="{{ url_for('auth.index') }}">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Items to Order</title>
+    <script>
+        function updateCategory() {
+            const category = document.getElementById('category').value;
+            window.location.href = `{{ url_for('orders.add_to_current_order') }}?category=${encodeURIComponent(category)}`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Add Items to Order</h1>
+    <form method="get">
+        <label for="category">Choose a Category:</label>
+        <select name="category" id="category" onchange="updateCategory()">
+            <option value="">Select a category...</option>
+            {% for category in categories %}
+                <option value="{{ category.name }}" {% if category.name == selected_category %}selected{% endif %}>
+                    {{ category.name.capitalize() }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    {% if selected_category %}
+        {% if items %}
+            <h2>Available Items in Selected Category: {{ selected_category.capitalize() }}</h2>
+            <ul>
+                {% for item in items %}
+                    <li>{{ item.description }}
+                        <form method="post" style="display:inline;">
+                            <input type="hidden" name="item_id" value="{{ item.itemId }}">
+                            <label for="quantity_{{ item.itemId }}">Quantity:</label>
+                            <input type="number" id="quantity_{{ item.itemId }}" name="quantity" min="1" value="1" required>
+                            <button type="submit">Add to Order</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No available items found in the selected category.</p>
+        {% endif %}
+    {% else %}
+        <p>Please select a category to view available items.</p>
+    {% endif %}
+    
+    <a href="{{ url_for('auth.index') }}">Back to Home</a>
+</body>
+</html>

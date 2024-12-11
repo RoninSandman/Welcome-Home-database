@@ -1,0 +1,28 @@
+<!-- templates/orders/view_order.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Order</title>
+</head>
+<body>
+    <h1>Order {{ order_id }}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Item Description</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.quantity }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('auth.index') }}">Back to Home</a>
+</body>
+</html>
